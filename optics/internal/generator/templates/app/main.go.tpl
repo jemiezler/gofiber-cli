@@ -1,13 +1,24 @@
 package main
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"github.com/gofiber/fiber/v2"
+	{{- if .Modules }}
+
+	{{- range .Modules }}
+	"{{ . }}"
+	{{- end }}
+
+	{{- end }}
+)
 
 func main() {
 	app := fiber.New()
 
-	{{range .Modules}}
-	{{.}}.Register(app)
-	{{end}}
+	{{- if .Modules }}
+	{{- range .Modules }}
+	{{ . }}.Register(app)
+	{{- end }}
+	{{- end }}
 
 	app.Listen(":8080")
 }

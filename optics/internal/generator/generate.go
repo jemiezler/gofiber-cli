@@ -17,8 +17,9 @@ import (
 )
 
 type Data struct {
-	Name   string
-	Pascal string
+	Name    string
+	Pascal  string
+	Modules []string
 }
 
 //go:embed templates/**
@@ -72,7 +73,14 @@ func GenerateApp(name string) {
 		}
 	}
 
-	render("templates/app/main.go.tpl", "cmd/server/main.go", Data{Name: name})
+	render(
+		"templates/app/main.go.tpl",
+		"cmd/server/main.go",
+		Data{
+			Name:    name,
+			Modules: []string{},
+		},
+	)
 	render("templates/app/env.tpl", ".env", Data{Name: name})
 
 	if err := run("go", "mod", "tidy"); err != nil {
