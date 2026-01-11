@@ -1,0 +1,11 @@
+# Go build outputs
+
+*.exe
+*.out
+*.test
+
+# Dist (GoReleaser)
+dist/
+
+# OS
+.DS_Store
